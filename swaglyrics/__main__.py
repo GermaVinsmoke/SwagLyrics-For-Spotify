@@ -55,7 +55,7 @@ def main():
 			song = args.song  # get song from command line argument
 			artist = args.artist  # get artist from command line argument
 			print(lyrics(song, artist))
-			raise SystemExit(0)
+			raise SystemExit(0)  # exit the app after the search result is shown
 
 		print(lyrics(song, artist))
 		print('\n(Press Ctrl+C to quit)')

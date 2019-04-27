@@ -3,7 +3,6 @@ Contains unit tests for __main__.py
 """
 import unittest
 from swaglyrics.__main__ import main
-from swaglyrics.cli import lyrics
 from mock import mock
 import argparse
 import io
@@ -148,14 +147,13 @@ class Tests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             main()
 
-    @mock.patch('swaglyrics.cli.get_lyrics')
-    def test_cover(self, mock):
-        a = True
-        while True and a:
-            lyrics('Perfect', 'Ed Sheeran')
-            self.assertTrue(mock.called)
-            a = False
-
+    @mock.patch('argparse.ArgumentParser.parse_args',
+                return_value=argparse.Namespace(tab=False, cli=True,
+                                                song="Perfect",
+                                                artist=None))
+    def test_parser_runs_cli_with_song_and_without_artist(self, mock_argparse):
+        with self.assertRaises(SystemExit):
+            main()
 
 
 if __name__ == '__main__':
